@@ -12,7 +12,7 @@ module.exports = {
     process.env.NODE_ENV == 'development' ?
     "./src/api/Entitie/*.ts"
     :
-    "./dist/Entitie/*.ts"
+    "./dist/Entitie/*.js"
   ],
   cli: {
     migrationsDir: "./src/api/database/migrations"
