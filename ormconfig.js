@@ -9,15 +9,15 @@ module.exports = {
     "./dist/database/migrations/*.js"
   ],
   entities: [
-    process.env.NODE_ENV == 'development' ?
+    process.env.NODE_ENV == 'dev' ?
     "./src/api/Entitie/*.ts"
     :
-    "./dist/Entitie/*.js"
+    "./dist/api/Entitie/*.js"
   ],
   cli: {
     migrationsDir: "./src/database/migrations"
   },
   extra: {
-    ssl: process.env.NODE_ENV == 'development' ? false : {"rejectUnauthorized":false}
+    ssl: process.env.NODE_ENV == 'dev' ? false : {"rejectUnauthorized":false}
   }
 }

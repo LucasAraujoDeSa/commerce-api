@@ -7,10 +7,11 @@
   "author": "@LucasAraujoDeSa, Gabriel-Macedo",
   "license": "MIT",
   "scripts": {
-    "dev": "NODE_ENV=development tsnd -r tsconfig-paths/register --transpile-only --ignore-watch node_modules src/server.ts",
+    "dev": "tsnd -r tsconfig-paths/register --transpile-only --ignore-watch node_modules src/api/server.ts",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "build": "rimraf dist && tsc",
-    "start": "NODE_ENV=production node dist/server.js"
+    "test": "jest",
+    "start": "node dist/api/server.js"
   },
   "devDependencies": {
     "@types/express": "^4.17.11",
