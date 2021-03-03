@@ -4,7 +4,7 @@ module.exports = {
   synchronize: true,
   migrations: [
     process.env.NODE_ENV == 'development' ?
-    "./src/api/database/migrations/*.ts"
+    "./src/database/migrations/*.ts"
     :
     "./dist/database/migrations/*.js"
   ],
@@ -15,7 +15,7 @@ module.exports = {
     "./dist/Entitie/*.js"
   ],
   cli: {
-    migrationsDir: "./src/api/database/migrations"
+    migrationsDir: "./src/database/migrations"
   },
   extra: {
     ssl: process.env.NODE_ENV == 'development' ? false : {"rejectUnauthorized":false}
