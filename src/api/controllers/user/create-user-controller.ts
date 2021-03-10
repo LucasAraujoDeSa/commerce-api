@@ -1,17 +1,17 @@
+import { CreateUserService } from '@/api/services/users-service/create-user-service';
 import { Request, Response } from 'express';
-import { createUserContainer } from '@/factories/index';
+import { container } from 'tsyringe';
 
 export class CreateUserController {
   public async create(req: Request, res: Response): Promise<Response> {
     try {
       const { name, email, password, avatar } = req.body;
 
-      const userService = createUserContainer();
+      const userService = container.resolve(CreateUserService);
       const user = await userService.execute({
         name,
         email,
         password,
-        avatar,
       });
 
       return res.status(201).json(user);
