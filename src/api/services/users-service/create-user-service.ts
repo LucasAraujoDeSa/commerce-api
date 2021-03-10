@@ -1,28 +1,35 @@
-import { IUser } from './../../ports/users/user';
+import 'reflect-metadata';
+import { IHash } from './../../../Providers/HashProvider/models/IHash';
+import { AppError } from './../../../errors/AppError';
+import { inject, injectable } from 'tsyringe';
+import { IUserRepository } from '../../repositories/ports/IUser-Repository';
 import { User } from '../../entitie/User';
-import { UserRepository } from '../../repositories/user-repository';
-import { IHash } from '@/Providers/HashProvider/models/IHash';
 
 interface IRequest {
   name: string;
   email: string;
   password: string;
-  avatar: string;
 }
-
+@injectable()
 export class CreateUserService {
-  constructor(private userRepository: UserRepository, private hash: IHash) {}
+  constructor(
+    @inject('UserRepository')
+    private userRepository: IUserRepository,
+    @inject('Hash')
+    private hash: IHash,
+  ) {}
 
-  public async execute({
-    name,
-    email,
-    password,
-    avatar,
-  }: IRequest): Promise<User> {
+  public async execute({ name, email, password }: IRequest): Promise<User> {
     const exists = await this.userRepository.findByEmail(email);
 
-    if (!exists) {
-      return exists;
+    if (exists) {
+      throw new AppError('Email in user', 401);
+    }
+
+    let tester = /^[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
+
+    if (!tester.test(email)) {
+      throw new AppError('Email invalid', 401);
     }
 
     const hashPassword = await this.hash.encrypter(password);
@@ -31,8 +38,9 @@ export class CreateUserService {
       name,
       email,
       password: hashPassword,
-      avatar,
     });
+
+    await this.userRepository.save(user);
 
     return user;
   }
