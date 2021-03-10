@@ -1,8 +1,9 @@
+import { IProductRepository } from './ports/IProduct-Repository';
 import { getRepository, Repository } from 'typeorm';
 import { IProduct } from '../ports/products/product';
 import { Product } from '../Entitie/Product';
 
-export class ProductRepository {
+export class ProductRepository implements IProductRepository {
   private readonly ormRepository: Repository<Product>;
 
   constructor() {
