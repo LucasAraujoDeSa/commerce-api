@@ -3,7 +3,7 @@ module.exports = {
   url: process.env.DATABASE_URL,
   synchronize: true,
   migrations: [
-    process.env.NODE_ENV == 'development' ?
+    process.env.NODE_ENV == 'dev' ?
     "./src/database/migrations/*.ts"
     :
     "./dist/database/migrations/*.js"
