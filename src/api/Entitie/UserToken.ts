@@ -1,30 +1,23 @@
 import {
-  Column,
-  CreateDateColumn,
   Entity,
+  Column,
   PrimaryGeneratedColumn,
+  CreateDateColumn,
   UpdateDateColumn,
+  Generated,
 } from 'typeorm';
 
-@Entity('products')
-export class Product {
+@Entity('user_tokens')
+export class UserToken {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
-  name: string;
+  @Generated('uuid')
+  token: string;
 
   @Column()
-  description: string;
-
-  @Column()
-  price: number;
-
-  @Column()
-  amount: number;
-
-  @Column()
-  color: string;
+  user_id: string;
 
   @CreateDateColumn()
   created_at: Date;

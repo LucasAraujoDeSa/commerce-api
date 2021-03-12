@@ -14,6 +14,6 @@
       "@/*": ["*"]
     }
   },
-  "include": ["src", "tests"],
+  "include": ["src", "tests", "test/api/in-memory-repositories"],
   "exclude": []
 }
